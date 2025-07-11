@@ -1,6 +1,8 @@
 const pickElement = document.getElementById("pickingButton");
 const res = document.getElementById("lotteryRes");
 const boxContainer = document.getElementById("box");
+const pop= new Audio('pop.wav')
+const gameCompletion=new Audio('gameCompletion.wav');
 const items = [
   "₹100 Cash",
   "Toy Car",
@@ -61,6 +63,9 @@ pickElement.addEventListener("click", () => {
   let secondsCount = 0;
   let prev=null;
   const intervalId = setInterval(() => {
+    pop.pause();
+    pop.currentTime=0;
+    pop.play();
     for (let i = 0; i < items.length; i++) {
     document.getElementById(i + 1).classList.remove("winning-box", "highlighted-box");
     }
@@ -73,6 +78,9 @@ pickElement.addEventListener("click", () => {
       let randomNum = Math.floor(Math.random() * 50 + 1);
       res.textContent = `You have got ${randomNum} and you won ${ items[randomNum - 1] }`;
       document.getElementById(randomNum).classList.add("winning-box");
+      gameCompletion.pause();
+      gameCompletion.currentTime=0;
+      gameCompletion.play();
       if(prev) document.getElementById(prev).classList.remove('highlighted-box');
 
       clearInterval(intervalId);
